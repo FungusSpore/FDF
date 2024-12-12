@@ -6,11 +6,12 @@
 /*   By: jianwong <jianwong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 19:52:18 by jianwong          #+#    #+#             */
-/*   Updated: 2024/12/12 16:24:11 by jianwong         ###   ########.fr       */
+/*   Updated: 2024/12/12 21:54:55 by jianwong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FDF.h"
+
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
