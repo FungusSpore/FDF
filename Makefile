@@ -8,7 +8,7 @@ CC= cc
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) -L$(MLX) -l$(MLX) -L/usr/lib -I$(MLX) -lXext -lX11 -lm -lz -o $(NAME)
+	$(CC) $(OBJ) -L$(MLX) -lmlx_Linux -L/usr/lib -I$(MLX) -lXext -lX11 -lm -lz -o $(NAME)
 
 %.o:%.c
 	$(CC) $(FLAGS) -I/usr/include -I$(MLX) -O3 -c $< -o $@
