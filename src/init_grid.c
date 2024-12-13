@@ -6,13 +6,13 @@
 /*   By: jianwong <jianwong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 17:48:58 by jianwong          #+#    #+#             */
-/*   Updated: 2024/12/13 18:31:51 by jianwong         ###   ########.fr       */
+/*   Updated: 2024/12/14 00:37:07 by jianwong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FDF.h"
 
-void	free_all(char **nums)
+static void	free_all(char **nums)
 {
 	int	i;
 
@@ -22,62 +22,104 @@ void	free_all(char **nums)
 	free(nums);
 }
 
-void	get_next_row(t_list **point, int fd)
+static int	*convert_to_int(char **nums, int *x)
 {
-	char	**nums;
+	int		*arr;
+	int		size;
 	int		i;
-	int		x;
-	int		*row;
-	char	*line;
-	int		*grid;
 
-	x = 0;
 	i = 0;
+	while (nums[i++]);
+	arr = malloc(sizeof(int) * i);
+	if (!arr)
+		return (NULL);
+	i = -1;
+	while (nums[++i])
+		arr[i] = ft_atoi(nums[i]);
+	if (*x < 1)
+		*x = i;
+	if (*x != i)
+	{
+		free_all(nums);
+		return (NULL);
+	}
+	free_all(nums);
+	return (arr);
+}
+
+static int	**list_to_arr(t_list *row, int x)
+{
+	int	i;
+	int	j;
+	int	**result;
+	int	*current_row;
+	t_list	*temp;
+
+	result = malloc(sizeof(int *) * ft_lstsize(row));
+	j = 0;
+	if (!result)
+		return (NULL);
+	while (row)
+	{
+		i = x;
+		current_row = malloc(sizeof(int) * x);
+		if (!current_row)
+			return (NULL);
+		while (i--)
+			current_row[i] = ((int *)row->content)[i];
+		result[j++]	= current_row;
+		temp = row;	
+		row = row->next;
+		free(temp->content);
+		free(temp);
+	}
+	return (result);
+}
+
+int	**init_grid(int fd, int *x, int *y)
+{
+	int		*arr;
+	char	*line;
+	char	**nums;
+	t_list	*row;
+
+	row = NULL;
 	line = get_next_line(fd);
 	while (line)
 	{
+		(*y)++;
 		nums = ft_split(line, ' ');
-		while (nums[i++])
-			x++;
-		row = malloc(sizeof(int) * x);
-		if (!row)
-			return ;
-		i = -1;
-		while (nums[++i])
-			row[i] = ft_atoi(nums[i]);
-		free_all(nums);
-		ft_lstadd_back(point, ft_lstnew(row));
+		arr = convert_to_int(nums, x);
+		if (!arr)
+			return (NULL);
+		ft_lstadd_back(&row, ft_lstnew(arr));
 		free(line);
 		line = get_next_line(fd);
 	}
+	if (*y == 0)
+		return (NULL);
+	return (list_to_arr(row, *x));
 }
-
-int	*init_grid(int fd)
-{
-	int		x;
-	char	*line;
-	char	**nums;
-
-	x = 0;
-	line = get_next_line(fd);
-	nums = ft_split(line, ' ');
-
-	if (x)
-}
-
-int	**get_points(char *file)
-{
-	int	fd;
-	t_list	*points;
-
-	points = NULL;
-	fd = open(file, O_RDONLY);
-	if (fd < 0)
-	{
-		ft_printf(strerror(fd));
-		exit(1);
-	}
-	get_next_row(&points, fd);
-
-	
-}
+// int	main(int argc, char **argv)
+// {
+// 	int fd = open(argv[1], O_RDONLY);
+// 	int x = 0;
+// 	int	y = 0;
+// 	int	**grid = init_grid(fd, &x, &y);
+//
+// 	if (!y || !x || !grid)
+// 	{
+// 		ft_printf("invalid map\n");
+// 		return (1);
+// 	}
+// 	int j = 0;
+// 	int i = 0;
+// 	while (i < y)
+// 	{
+// 		j = 0;
+// 		while (j < x)
+// 			ft_printf("%d ", grid[i][j++]);
+// 		ft_printf("\n");
+// 		i++;
+// 	}
+// }
