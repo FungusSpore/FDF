@@ -1,5 +1,5 @@
 NAME=FDF
-SOURCE= src/FDF.c
+SOURCE= src/FDF.c src/trgb.c src/colour_functions.c
 OBJ=$(SOURCE:.c=.o)
 MLX=minilibx-linux
 FLAGS= -Wall -Wextra -Werror
@@ -12,3 +12,11 @@ $(NAME): $(OBJ)
 
 %.o:%.c
 	$(CC) $(FLAGS) -I/usr/include -I$(MLX) -O3 -c $< -o $@
+
+clean:
+	rm -f src/*.o
+
+fclean: clean
+	rm -f FDF
+
+re: fclean all

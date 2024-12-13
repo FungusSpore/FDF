@@ -6,12 +6,11 @@
 /*   By: jianwong <jianwong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 21:54:46 by jianwong          #+#    #+#             */
-/*   Updated: 2024/12/12 22:19:03 by jianwong         ###   ########.fr       */
+/*   Updated: 2024/12/13 13:39:11 by jianwong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FDF.h"
-#include <stdio.h>
 
 int	create_trgb(int t, int r, int g, int b)
 {
