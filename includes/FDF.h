@@ -6,7 +6,7 @@
 /*   By: jianwong <jianwong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:38:46 by jianwong          #+#    #+#             */
-/*   Updated: 2024/12/14 00:39:52 by jianwong         ###   ########.fr       */
+/*   Updated: 2024/12/15 23:14:28 by jianwong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,23 @@ typedef struct s_data
 	int		endian;
 }			t_data;
 
+/*typedef struct s_coordinate*/
+/*{*/
+/*	int	y;*/
+/*	int	x;*/
+/*}		t_coordinate;*/
+
 typedef struct s_grid
 {
 	int	**grid;
 	int	y;
 	int	x;
 }		t_grid;
+/*typedef struct s_grid*/
+/*{*/
+/*	int					**grid;*/
+/*	t_coordinate coord;*/
+/*}		t_grid;*/
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
@@ -50,5 +61,7 @@ int	add_shade(double distance, int trgb);
 int	invert_colour(int trgb);
 
 int	**init_grid(int fd, int *x, int *y);
+
+void	draw_line(t_data *img, int x0, int y0, int x1, int y1);
 
 #endif

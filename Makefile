@@ -1,5 +1,7 @@
 NAME=FDF
-SOURCE= src/FDF.c src/trgb.c src/colour_functions.c
+DIR_LIBFT=libft
+LIBFT=$(DIR_LIBFT)/libft.a
+SOURCE= src/FDF.c src/trgb.c src/colour_functions.c src/init_grid.c src/draw_utils.c src/draw_line.c
 OBJ=$(SOURCE:.c=.o)
 MLX=minilibx-linux
 FLAGS= -Wall -Wextra -Werror
@@ -7,16 +9,20 @@ CC= cc
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(CC) $(OBJ) -L$(MLX) -lmlx_Linux -L/usr/lib -I$(MLX) -lXext -lX11 -lm -lz -o $(NAME)
+$(NAME): $(OBJ) $(LIBFT)
+	$(CC) $^ -L$(MLX) -lmlx_Linux -L/usr/lib -I$(MLX) -I$(DIR_LIBFT) -lXext -lX11 -lm -lz -o $(NAME)
 
 %.o:%.c
-	$(CC) $(FLAGS) -I/usr/include -I$(MLX) -O3 -c $< -o $@
+	$(CC) $(FLAGS) -I/usr/include -I$(MLX) -I$(DIR_LIBFT) -O3 -c $< -o $@
+
+$(LIBFT):
+	make -C $(DIR_LIBFT) bonus
 
 clean:
 	rm -f src/*.o
+	make -C $(DIR_LIBFT) clean
 
 fclean: clean
-	rm -f FDF
+	rm -f $(NAME) $(LIBFT)
 
 re: fclean all

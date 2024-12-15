@@ -6,7 +6,7 @@
 /*   By: jianwong <jianwong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 17:48:58 by jianwong          #+#    #+#             */
-/*   Updated: 2024/12/14 00:37:07 by jianwong         ###   ########.fr       */
+/*   Updated: 2024/12/15 22:59:15 by jianwong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static void	free_all(char **nums)
 static int	*convert_to_int(char **nums, int *x)
 {
 	int		*arr;
-	int		size;
 	int		i;
 
 	i = 0;
