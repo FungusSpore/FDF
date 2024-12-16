@@ -6,7 +6,7 @@
 /*   By: jianwong <jianwong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 15:54:02 by jianwong          #+#    #+#             */
-/*   Updated: 2024/12/16 14:40:27 by jianwong         ###   ########.fr       */
+/*   Updated: 2024/12/16 17:43:05 by jianwong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ t_coordinate	*isometric_projection(t_grid grid)
 		x = -1;
 		while (++x < grid.x)
 		{
-			projection_coords[i].x = (x + 350) * (sqrt(3) * (1/sqrt(6))) \
-				+ grid.grid[y][x] * (-sqrt(3) * (1/sqrt(6)));
-			projection_coords[i].y = (x + 350) * (1 / sqrt(6)) + (y + 450) \
-				* (2 * (1 / sqrt(6))) + grid.grid[y][x] * (1 / sqrt(6));
+			projection_coords[i].x = (x * 20) * (sqrt(3) * (1/sqrt(6))) \
+				+ (20 * grid.grid[y][x]) * (-sqrt(3) * (1/sqrt(6))) + (1980 / 3);
+			projection_coords[i].y = (x * 20) * (1 / sqrt(6)) + (y * 20) \
+				* (2 * (1 / sqrt(6))) + (20 * grid.grid[y][x]) * (1 / sqrt(6)) + (1080 / 3);
 			i++;
 		}
 	}
@@ -44,15 +44,26 @@ void	put_projection(t_grid grid, t_data *img)
 {
 	t_coordinate *projection_coords;
 	int				i;
+	int				x;
+	int				y;
 	int				size;
 
 	projection_coords = isometric_projection(grid);
 	size = grid.x * grid.y;
 	i = 0;
-	while (i < size)
+	y = -1;
+	while (++y < grid.y)
 	{
-		my_mlx_pixel_put(img, projection_coords[i].x, projection_coords[i].y, RED);
-		i++;
+		x = -1;
+		while (++x < grid.x)
+		{
+			my_mlx_pixel_put(img, projection_coords[i].x, projection_coords[i].y, RED);
+			if (x != grid.x - 1)
+				draw_line(img, projection_coords[i].x, projection_coords[i].y, projection_coords[i + 1].x, projection_coords[i + 1].y);
+			if (y != grid.y - 1)
+				draw_line(img, projection_coords[i].x, projection_coords[i].y, projection_coords[i + grid.x].x, projection_coords[i + grid.x].y);
+			i++;
+		}
 	}
 }
 
@@ -82,8 +93,8 @@ int main (int argc, char **argv)
 		return (1);
 	}
 	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 900, 700, "Hello World!");
-	img.img = mlx_new_image(mlx, 900, 700);
+	mlx_win = mlx_new_window(mlx, 1980, 1080, "Hello World!");
+	img.img = mlx_new_image(mlx, 1980, 1080);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, \
 															&img.line_length, &img.endian);
 	put_projection(grid, &img);
