@@ -6,7 +6,7 @@
 /*   By: jianwong <jianwong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:38:46 by jianwong          #+#    #+#             */
-/*   Updated: 2024/12/16 17:45:25 by jianwong         ###   ########.fr       */
+/*   Updated: 2024/12/17 00:15:28 by jianwong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,13 @@ typedef struct s_grid
 	int	y;
 	int	x;
 }		t_grid;
-/*typedef struct s_grid*/
-/*{*/
-/*	int					**grid;*/
-/*	t_coordinate coord;*/
-/*}		t_grid;*/
+
+typedef struct s_init
+{
+	void	*mlx;
+	void	*win_mlx;
+	
+}			t_init;
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
