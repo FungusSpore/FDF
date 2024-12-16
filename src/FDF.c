@@ -6,7 +6,7 @@
 /*   By: jianwong <jianwong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 15:54:02 by jianwong          #+#    #+#             */
-/*   Updated: 2024/12/16 17:43:05 by jianwong         ###   ########.fr       */
+/*   Updated: 2024/12/16 19:28:48 by jianwong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ t_coordinate	*isometric_projection(t_grid grid)
 	int		y;
 	int		x;
 	int		i;
+	int		scaling;
 
 	y = -1;
 	i = 0;
+	scaling = 20;
 	projection_coords = malloc(sizeof(t_coordinate) * (grid.y * grid.x));
 	if (!projection_coords)
 		return (NULL);
@@ -29,10 +31,12 @@ t_coordinate	*isometric_projection(t_grid grid)
 		x = -1;
 		while (++x < grid.x)
 		{
-			projection_coords[i].x = (x * 20) * (sqrt(3) * (1/sqrt(6))) \
-				+ (20 * grid.grid[y][x]) * (-sqrt(3) * (1/sqrt(6))) + (1980 / 3);
-			projection_coords[i].y = (x * 20) * (1 / sqrt(6)) + (y * 20) \
-				* (2 * (1 / sqrt(6))) + (20 * grid.grid[y][x]) * (1 / sqrt(6)) + (1080 / 3);
+			// projection_coords[i].x = (x * 20) * (sqrt(3) * (1/sqrt(6))) \
+			// 	+ (20 * grid.grid[y][x]) * (-sqrt(3) * (1/sqrt(6))) + (X_RESOLUTION / 3);
+			// projection_coords[i].y = (x * 20) * (1 / sqrt(6)) + (y * 20) \
+			// 	* (2 * (1 / sqrt(6))) + (20 * grid.grid[y][x]) * (1 / sqrt(6)) + (Y_RESOLUTION / 3);
+			projection_coords[i].x = (x * cos(120) + y * cos(120 + 2) + grid.grid[y][x] * cos(120 - 2)) * scaling + X_RESOLUTION/2;
+			projection_coords[i].y = (x * sin(120) + y * sin(120 + 2) + grid.grid[y][x] * sin(120 - 2)) * scaling + Y_RESOLUTION/2;
 			i++;
 		}
 	}
@@ -59,9 +63,11 @@ void	put_projection(t_grid grid, t_data *img)
 		{
 			my_mlx_pixel_put(img, projection_coords[i].x, projection_coords[i].y, RED);
 			if (x != grid.x - 1)
-				draw_line(img, projection_coords[i].x, projection_coords[i].y, projection_coords[i + 1].x, projection_coords[i + 1].y);
+				draw_line(img, projection_coords[i].x, projection_coords[i].y, \
+							projection_coords[i + 1].x, projection_coords[i + 1].y);
 			if (y != grid.y - 1)
-				draw_line(img, projection_coords[i].x, projection_coords[i].y, projection_coords[i + grid.x].x, projection_coords[i + grid.x].y);
+				draw_line(img, projection_coords[i].x, projection_coords[i].y, \
+							projection_coords[i + grid.x].x, projection_coords[i + grid.x].y);
 			i++;
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: jianwong <jianwong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:38:46 by jianwong          #+#    #+#             */
-/*   Updated: 2024/12/16 13:31:42 by jianwong         ###   ########.fr       */
+/*   Updated: 2024/12/16 17:45:25 by jianwong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@
 # define RED 0x00FF0000
 # define GREEN 0x0000FF00
 # define BLUE 0x000000FF
+
+# define X_RESOLUTION 1980
+# define Y_RESOLUTION 1080
 
 typedef struct s_data
 {
