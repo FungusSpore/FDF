@@ -6,7 +6,7 @@
 /*   By: jianwong <jianwong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:38:46 by jianwong          #+#    #+#             */
-/*   Updated: 2024/12/15 23:14:28 by jianwong         ###   ########.fr       */
+/*   Updated: 2024/12/16 13:31:42 by jianwong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ typedef struct s_data
 	int		endian;
 }			t_data;
 
-/*typedef struct s_coordinate*/
-/*{*/
-/*	int	y;*/
-/*	int	x;*/
-/*}		t_coordinate;*/
+typedef struct s_coordinate
+{
+	int	y;
+	int	x;
+}		t_coordinate;
 
 typedef struct s_grid
 {

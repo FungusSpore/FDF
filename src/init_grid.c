@@ -6,7 +6,7 @@
 /*   By: jianwong <jianwong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 17:48:58 by jianwong          #+#    #+#             */
-/*   Updated: 2024/12/15 22:59:15 by jianwong         ###   ########.fr       */
+/*   Updated: 2024/12/16 13:48:04 by jianwong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ static int	*convert_to_int(char **nums, int *x)
 	while (nums[++i])
 		arr[i] = ft_atoi(nums[i]);
 	if (*x < 1)
-		*x = i;
-	if (*x != i)
+		*x = i + 1;
+	if (*x != i + 1)
 	{
 		free_all(nums);
 		return (NULL);
@@ -75,6 +75,7 @@ static int	**list_to_arr(t_list *row, int x)
 	return (result);
 }
 
+// x and y both set to 1 index instead of zero
 int	**init_grid(int fd, int *x, int *y)
 {
 	int		*arr;
@@ -82,6 +83,8 @@ int	**init_grid(int fd, int *x, int *y)
 	char	**nums;
 	t_list	*row;
 
+	*x = 0;
+	*y = 0;
 	row = NULL;
 	line = get_next_line(fd);
 	while (line)

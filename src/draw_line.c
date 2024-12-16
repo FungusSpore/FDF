@@ -6,12 +6,11 @@
 /*   By: jianwong <jianwong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 17:03:16 by jianwong          #+#    #+#             */
-/*   Updated: 2024/12/15 23:02:16 by jianwong         ###   ########.fr       */
+/*   Updated: 2024/12/16 13:29:18 by jianwong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FDF.h"
-#include <stdlib.h>
 
 static void	swap_coordinate(int *x0, int *y0, int *x1, int *y1)
 {
@@ -59,7 +58,6 @@ static void	draw_lineH(t_data *img, int x0, int y0, int x1, int y1)
 		}
 	}
 }
-
 static void	draw_lineV(t_data *img, int x0, int y0, int x1, int y1)
 {
 	int		dx;
