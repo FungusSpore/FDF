@@ -6,7 +6,7 @@
 /*   By: jianwong <jianwong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:38:46 by jianwong          #+#    #+#             */
-/*   Updated: 2024/12/17 00:15:28 by jianwong         ###   ########.fr       */
+/*   Updated: 2024/12/17 23:44:00 by jianwong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@
 # define X_RESOLUTION 1980
 # define Y_RESOLUTION 1080
 
+# define ESC 65307
+# define X_BUTTON 939966976
+
 typedef struct s_data
 {
 	void	*img;
@@ -38,11 +41,14 @@ typedef struct s_coordinate
 {
 	int	y;
 	int	x;
+	int	z;
+	int	rgb;
 }		t_coordinate;
 
 typedef struct s_grid
 {
 	int	**grid;
+	t_coordinate *coord;
 	int	y;
 	int	x;
 }		t_grid;
@@ -51,6 +57,7 @@ typedef struct s_init
 {
 	void	*mlx;
 	void	*win_mlx;
+	t_data img;
 	
 }			t_init;
 
@@ -65,7 +72,8 @@ int	get_b(int trgb);
 int	add_shade(double distance, int trgb);
 int	invert_colour(int trgb);
 
-int	**init_grid(int fd, int *x, int *y);
+int	process_coords(int fd, t_grid *grid);
+// int	**init_grid(int fd, int *x, int *y);
 
 void	draw_line(t_data *img, int x0, int y0, int x1, int y1);
 

@@ -6,11 +6,12 @@
 /*   By: jianwong <jianwong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 17:48:58 by jianwong          #+#    #+#             */
-/*   Updated: 2024/12/16 13:48:04 by jianwong         ###   ########.fr       */
+/*   Updated: 2024/12/17 23:43:15 by jianwong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FDF.h"
+#include <sys/types.h>
 
 static void	free_all(char **nums)
 {
@@ -76,31 +77,51 @@ static int	**list_to_arr(t_list *row, int x)
 }
 
 // x and y both set to 1 index instead of zero
-int	**init_grid(int fd, int *x, int *y)
+void	init_grid(int fd, t_grid *grid)
 {
+	int		i;
 	int		*arr;
 	char	*line;
 	char	**nums;
+	char	**point_colour;
+	t_coordinate *coord;
 	t_list	*row;
 
-	*x = 0;
-	*y = 0;
+	grid->x = 0;
+	grid->y = 0;
+
 	row = NULL;
 	line = get_next_line(fd);
+
 	while (line)
 	{
-		(*y)++;
+		i = -1;
 		nums = ft_split(line, ' ');
-		arr = convert_to_int(nums, x);
+		while (nums[++i])
+		{
+			point_colour = ft_split(nums[i], ',');
+			coord = malloc(sizeof(t_coordinate));
+			if (!coord)
+				return ;
+			coord->y = grid->y;
+			coord->x = i;
+			coord->z = atoi(point_colour[0]);
+			if (!point_colour)
+				coord->rgb = BLUE; // to be continued;
+			else
+				coord->rgb = RED;
+		}
+		arr = convert_to_int(nums, &grid->x);
 		if (!arr)
-			return (NULL);
+			return ;
 		ft_lstadd_back(&row, ft_lstnew(arr));
 		free(line);
 		line = get_next_line(fd);
+		(grid->y)++;
 	}
-	if (*y == 0)
-		return (NULL);
-	return (list_to_arr(row, *x));
+	if (grid->y == 0)
+		return ;
+	return (list_to_arr(row, grid->x));
 }
 // int	main(int argc, char **argv)
 // {

@@ -1,7 +1,7 @@
 NAME=FDF
 DIR_LIBFT=libft
 LIBFT=$(DIR_LIBFT)/libft.a
-SOURCE= src/FDF.c src/trgb.c src/colour_functions.c src/init_grid.c src/draw_utils.c src/draw_line.c
+SOURCE= src/FDF.c src/trgb.c src/colour_functions.c src/draw_utils.c src/draw_line.c src/process_coords.c
 OBJ=$(SOURCE:.c=.o)
 MLX=minilibx-linux
 FLAGS= -Wall -Wextra -Werror
