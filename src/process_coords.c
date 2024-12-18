@@ -6,7 +6,7 @@
 /*   By: jianwong <jianwong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 22:13:07 by jianwong          #+#    #+#             */
-/*   Updated: 2024/12/17 23:46:56 by jianwong         ###   ########.fr       */
+/*   Updated: 2024/12/18 16:26:41 by jianwong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,9 +165,9 @@ int	process_coords(int fd, t_grid *grid)
 //     for (i = 0; i < grid->x * grid->y; i++)
 //     {
 //         printf("%d ",
-//                // grid->coord[i].x,
-//                // grid->coord[i].y,
-//                grid->coord[i].z);
+//                // grid->coord[i].x);
+//                // grid->coord[i].y);
+//                // grid->coord[i].z);
 //                // grid->coord[i].rgb);
 //         if ((i + 1) % grid->x == 0)
 //             printf("\n");

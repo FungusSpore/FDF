@@ -6,7 +6,7 @@
 /*   By: jianwong <jianwong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:38:46 by jianwong          #+#    #+#             */
-/*   Updated: 2024/12/17 23:44:00 by jianwong         ###   ########.fr       */
+/*   Updated: 2024/12/18 16:18:17 by jianwong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,21 @@
 # define Y_RESOLUTION 1080
 
 # define ESC 65307
-# define X_BUTTON 939966976
+
+# define UP 65362
+# define DOWN 65364
+# define LEFT 65361
+# define RIGHT 65363
+
+# define Q 113
+# define W 119
+# define E 101
+# define A 97
+# define S 115
+# define D 100
+
+# define PGUP 65365
+# define PGDOWN 65366
 
 typedef struct s_data
 {
@@ -47,10 +61,12 @@ typedef struct s_coordinate
 
 typedef struct s_grid
 {
-	int	**grid;
 	t_coordinate *coord;
 	int	y;
 	int	x;
+	int	scaling;
+	int	y_offset;
+	int	x_offset;
 }		t_grid;
 
 typedef struct s_init
@@ -60,6 +76,12 @@ typedef struct s_init
 	t_data img;
 	
 }			t_init;
+
+typedef struct s_var
+{
+	t_grid	grid;
+	t_init	init;
+}		t_var;
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
@@ -75,6 +97,8 @@ int	invert_colour(int trgb);
 int	process_coords(int fd, t_grid *grid);
 // int	**init_grid(int fd, int *x, int *y);
 
-void	draw_line(t_data *img, int x0, int y0, int x1, int y1);
+void	draw_line(t_data *img, t_coordinate point0, t_coordinate point1);
+
+int	key_hook(int keycode, t_var *vars);
 
 #endif

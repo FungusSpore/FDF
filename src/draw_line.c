@@ -6,7 +6,7 @@
 /*   By: jianwong <jianwong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 17:03:16 by jianwong          #+#    #+#             */
-/*   Updated: 2024/12/17 14:01:02 by jianwong         ###   ########.fr       */
+/*   Updated: 2024/12/18 16:13:29 by jianwong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	swap_coordinate(int *x0, int *y0, int *x1, int *y1)
 	*y1 = temp;
 }
 
-static void	draw_lineH(t_data *img, int x0, int y0, int x1, int y1)
+static void	draw_lineH(t_data *img, t_coordinate point0, t_coordinate point1)
 {
 	int		dx;
 	int		dy;
@@ -33,22 +33,22 @@ static void	draw_lineH(t_data *img, int x0, int y0, int x1, int y1)
 	int		i;
 	int		dir;
 
-	if (x0 > x1)
-		swap_coordinate(&x0, &y0, &x1, &y1);
-	dx = x1 - x0;
-	dy = y1 - y0;
+	if (point0.x > point1.x)
+		swap_coordinate(&point0.x, &point0.y, &point1.x, &point1.y);
+	dx = point1.x - point0.x;
+	dy = point1.y - point0.y;
 	dir = 1;
 	if (dy < 0)
 		dir = -1;
 	dy *= dir;
 	if (dx != 0)
 	{
-		y = y0;
+		y = point0.y;
 		p = 2 * dy - dx;
 		i = -1;
 		while (++i < dx + 1)
 		{
-			my_mlx_pixel_put(img ,x0 + i, y, RED);
+			my_mlx_pixel_put(img ,point0.x + i, y, RED);
 			if (p >= 0)
 			{
 				y += dir;
@@ -59,7 +59,7 @@ static void	draw_lineH(t_data *img, int x0, int y0, int x1, int y1)
 	}
 }
 
-static void	draw_lineV(t_data *img, int x0, int y0, int x1, int y1)
+static void	draw_lineV(t_data *img, t_coordinate point0, t_coordinate point1)
 {
 	int		dx;
 	int		dy;
@@ -68,22 +68,22 @@ static void	draw_lineV(t_data *img, int x0, int y0, int x1, int y1)
 	int		i;
 	int		dir;
 
-	if (y0 > y1)
-		swap_coordinate(&x0, &y0, &x1, &y1);
-	dx = x1 - x0;
-	dy = y1 - y0;
+	if (point0.y > point1.y)
+		swap_coordinate(&point0.x, &point0.y, &point1.x, &point1.y);
+	dx = point1.x - point0.x;
+	dy = point1.y - point0.y;
 	dir = 1;
 	if (dx < 0)
 		dir = -1;
 	dx *= dir;
 	if (dy != 0)
 	{
-		x = x0;
+		x = point0.x;
 		p = 2 * dx - dy;
 		i = -1;
 		while (++i < dy + 1)
-		{
-			my_mlx_pixel_put(img , x, y0 + i, RED);
+	{
+			my_mlx_pixel_put(img , x, point0.y + i, RED);
 			if (p >= 0)
 			{
 				x += dir;
@@ -94,13 +94,21 @@ static void	draw_lineV(t_data *img, int x0, int y0, int x1, int y1)
 	}
 }
 
-void	draw_line(t_data *img, int x0, int y0, int x1, int y1)
+void	draw_line(t_data *img, t_coordinate point0, t_coordinate point1)
 {
-	if (abs(x1 - x0) > abs(y1 - y0))
-		draw_lineH(img, x0, y0, x1, y1);
+	if (abs(point1.x -point0.x) > abs(point1.y - point0.y))
+		draw_lineH(img, point0, point1);
 	else
-		draw_lineV(img, x0, y0, x1, y1);
+		draw_lineV(img, point0, point1);
 }
+
+// void	draw_line(t_data *img, int x0, int y0, int x1, int y1)
+// {
+// 	if (abs(x1 - x0) > abs(y1 - y0))
+// 		draw_lineH(img, x0, y0, x1, y1);
+// 	else
+// 		draw_lineV(img, x0, y0, x1, y1);
+// }
 /*int	main(void)*/
 /*{*/
 /*	int		fd;*/
