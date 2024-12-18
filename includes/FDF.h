@@ -6,7 +6,7 @@
 /*   By: jianwong <jianwong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:38:46 by jianwong          #+#    #+#             */
-/*   Updated: 2024/12/18 20:06:41 by jianwong         ###   ########.fr       */
+/*   Updated: 2024/12/18 22:35:36 by jianwong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int	get_b(int trgb);
 
 int	add_shade(double distance, int trgb);
 int	invert_colour(int trgb);
+int	colour_gradient(int trgb1, int trgb2, int lenght, int current);
 
 int	process_coords(int fd, t_grid *grid);
 // int	**init_grid(int fd, int *x, int *y);

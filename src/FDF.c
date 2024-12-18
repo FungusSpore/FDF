@@ -6,12 +6,11 @@
 /*   By: jianwong <jianwong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 15:54:02 by jianwong          #+#    #+#             */
-/*   Updated: 2024/12/18 20:58:24 by jianwong         ###   ########.fr       */
+/*   Updated: 2024/12/18 22:06:55 by jianwong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FDF.h"
-#include <stdio.h>
 
 t_coordinate	*isometric_projection(t_grid grid)
 {
@@ -32,7 +31,7 @@ t_coordinate	*isometric_projection(t_grid grid)
 		projection_coords[i].int_y = \
 			(grid.coord[i].double_x * sin(120) + grid.coord[i].double_y * sin(120 + 2) + \
 			(grid.coord[i].double_z ) * sin(120 - 2)) * grid.scaling + grid.y_offset;
-		projection_coords->rgb = grid.coord[i].rgb;
+		projection_coords[i].rgb = grid.coord[i].rgb;
 	}
 	return (projection_coords);
 }

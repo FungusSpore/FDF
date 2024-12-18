@@ -6,24 +6,29 @@
 /*   By: jianwong <jianwong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 17:03:16 by jianwong          #+#    #+#             */
-/*   Updated: 2024/12/18 21:03:28 by jianwong         ###   ########.fr       */
+/*   Updated: 2024/12/18 23:17:40 by jianwong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FDF.h"
 
-static void	swap_coordinate(int *x0, int *y0, int *x1, int *y1)
+static void	swap_coordinate(t_coordinate *point0, t_coordinate *point1)
 {
 	int	temp;
 
-	temp = *x0;
-	*x0 = *x1;
-	*x1 = temp;
-	temp = *y0;
-	*y0 = *y1;
-	*y1 = temp;
+	temp = point0->int_x;
+	point0->int_x = point1->int_x;
+	point1->int_x = temp;
+	temp = point0->int_y;
+	point0->int_y = point1->int_y;
+	point1->int_y = temp;
+	temp = point0->rgb;
+	point0->rgb = point1->rgb;
+	point1->rgb = temp;
+
 }
 
+		// swap_coordinate(&point0.int_x, &point0.int_y, &point1.int_x, &point1.int_y);
 static void	draw_lineH(t_data *img, t_coordinate point0, t_coordinate point1)
 {
 	int		dx;
@@ -34,7 +39,7 @@ static void	draw_lineH(t_data *img, t_coordinate point0, t_coordinate point1)
 	int		dir;
 
 	if (point0.int_x > point1.int_x)
-		swap_coordinate(&point0.int_x, &point0.int_y, &point1.int_x, &point1.int_y);
+		swap_coordinate(&point0, &point1);
 	dx = point1.int_x - point0.int_x;
 	dy = point1.int_y - point0.int_y;
 	dir = 1;
@@ -48,7 +53,7 @@ static void	draw_lineH(t_data *img, t_coordinate point0, t_coordinate point1)
 		i = -1;
 		while (++i < dx + 1)
 		{
-			my_mlx_pixel_put(img ,point0.int_x + i, y, point0.rgb);
+			my_mlx_pixel_put(img ,point0.int_x + i, y, colour_gradient(point0.rgb, point1.rgb, dx, i));
 			if (p >= 0)
 			{
 				y += dir;
@@ -69,7 +74,7 @@ static void	draw_lineV(t_data *img, t_coordinate point0, t_coordinate point1)
 	int		dir;
 
 	if (point0.int_y > point1.int_y)
-		swap_coordinate(&point0.int_x, &point0.int_y, &point1.int_x, &point1.int_y);
+		swap_coordinate(&point0, &point1);
 	dx = point1.int_x - point0.int_x;
 	dy = point1.int_y - point0.int_y;
 	dir = 1;
@@ -83,7 +88,7 @@ static void	draw_lineV(t_data *img, t_coordinate point0, t_coordinate point1)
 		i = -1;
 		while (++i < dy + 1)
 	{
-			my_mlx_pixel_put(img , x, point0.int_y + i, point0.rgb);
+			my_mlx_pixel_put(img , x, point0.int_y + i, colour_gradient(point0.rgb, point1.rgb, dy, i));
 			if (p >= 0)
 			{
 				x += dir;
