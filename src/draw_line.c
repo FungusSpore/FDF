@@ -6,7 +6,7 @@
 /*   By: jianwong <jianwong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 17:03:16 by jianwong          #+#    #+#             */
-/*   Updated: 2024/12/18 16:13:29 by jianwong         ###   ########.fr       */
+/*   Updated: 2024/12/18 21:03:28 by jianwong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,22 @@ static void	draw_lineH(t_data *img, t_coordinate point0, t_coordinate point1)
 	int		i;
 	int		dir;
 
-	if (point0.x > point1.x)
-		swap_coordinate(&point0.x, &point0.y, &point1.x, &point1.y);
-	dx = point1.x - point0.x;
-	dy = point1.y - point0.y;
+	if (point0.int_x > point1.int_x)
+		swap_coordinate(&point0.int_x, &point0.int_y, &point1.int_x, &point1.int_y);
+	dx = point1.int_x - point0.int_x;
+	dy = point1.int_y - point0.int_y;
 	dir = 1;
 	if (dy < 0)
 		dir = -1;
 	dy *= dir;
 	if (dx != 0)
 	{
-		y = point0.y;
+		y = point0.int_y;
 		p = 2 * dy - dx;
 		i = -1;
 		while (++i < dx + 1)
 		{
-			my_mlx_pixel_put(img ,point0.x + i, y, RED);
+			my_mlx_pixel_put(img ,point0.int_x + i, y, point0.rgb);
 			if (p >= 0)
 			{
 				y += dir;
@@ -68,22 +68,22 @@ static void	draw_lineV(t_data *img, t_coordinate point0, t_coordinate point1)
 	int		i;
 	int		dir;
 
-	if (point0.y > point1.y)
-		swap_coordinate(&point0.x, &point0.y, &point1.x, &point1.y);
-	dx = point1.x - point0.x;
-	dy = point1.y - point0.y;
+	if (point0.int_y > point1.int_y)
+		swap_coordinate(&point0.int_x, &point0.int_y, &point1.int_x, &point1.int_y);
+	dx = point1.int_x - point0.int_x;
+	dy = point1.int_y - point0.int_y;
 	dir = 1;
 	if (dx < 0)
 		dir = -1;
 	dx *= dir;
 	if (dy != 0)
 	{
-		x = point0.x;
+		x = point0.int_x;
 		p = 2 * dx - dy;
 		i = -1;
 		while (++i < dy + 1)
 	{
-			my_mlx_pixel_put(img , x, point0.y + i, RED);
+			my_mlx_pixel_put(img , x, point0.int_y + i, point0.rgb);
 			if (p >= 0)
 			{
 				x += dir;
@@ -96,7 +96,7 @@ static void	draw_lineV(t_data *img, t_coordinate point0, t_coordinate point1)
 
 void	draw_line(t_data *img, t_coordinate point0, t_coordinate point1)
 {
-	if (abs(point1.x -point0.x) > abs(point1.y - point0.y))
+	if (abs(point1.int_x -point0.int_x) > abs(point1.int_y - point0.int_y))
 		draw_lineH(img, point0, point1);
 	else
 		draw_lineV(img, point0, point1);

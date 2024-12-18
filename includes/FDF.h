@@ -6,7 +6,7 @@
 /*   By: jianwong <jianwong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:38:46 by jianwong          #+#    #+#             */
-/*   Updated: 2024/12/18 16:18:17 by jianwong         ###   ########.fr       */
+/*   Updated: 2024/12/18 20:06:41 by jianwong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,18 @@
 # define LEFT 65361
 # define RIGHT 65363
 
-# define Q 113
-# define W 119
-# define E 101
-# define A 97
-# define S 115
-# define D 100
+# define Q_KEY 113
+# define W_KEY 119
+# define E_KEY 101
+# define A_KEY 97
+# define S_KEY 115
+# define D_KEY 100
 
 # define PGUP 65365
 # define PGDOWN 65366
+
+# define Z_KEY 122
+# define X_KEY 120
 
 typedef struct s_data
 {
@@ -53,10 +56,13 @@ typedef struct s_data
 
 typedef struct s_coordinate
 {
-	int	y;
-	int	x;
-	int	z;
-	int	rgb;
+	double	double_y;
+	double	double_x;
+	double	double_z;
+	int			int_y;
+	int			int_x;
+	int			int_z;
+	int		rgb;
 }		t_coordinate;
 
 typedef struct s_grid
@@ -67,6 +73,7 @@ typedef struct s_grid
 	int	scaling;
 	int	y_offset;
 	int	x_offset;
+	float	z_scale;
 }		t_grid;
 
 typedef struct s_init
@@ -100,5 +107,9 @@ int	process_coords(int fd, t_grid *grid);
 void	draw_line(t_data *img, t_coordinate point0, t_coordinate point1);
 
 int	key_hook(int keycode, t_var *vars);
+
+void	x_rotation(t_grid *grid, int angle);
+void	y_rotation(t_grid *grid, int angle);
+void	z_rotation(t_grid *grid, int angle);
 
 #endif

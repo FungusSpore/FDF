@@ -6,11 +6,12 @@
 /*   By: jianwong <jianwong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 15:54:02 by jianwong          #+#    #+#             */
-/*   Updated: 2024/12/18 16:19:19 by jianwong         ###   ########.fr       */
+/*   Updated: 2024/12/18 20:58:24 by jianwong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FDF.h"
+#include <stdio.h>
 
 t_coordinate	*isometric_projection(t_grid grid)
 {
@@ -25,12 +26,12 @@ t_coordinate	*isometric_projection(t_grid grid)
 		return (NULL);
 	while (++i < size)
 	{
-		projection_coords[i].x = \
-			(grid.coord[i].x * cos(120) + grid.coord[i].y * cos(120 + 2) + \
-			grid.coord[i].z * cos(120 - 2)) * grid.scaling + grid.x_offset;
-		projection_coords[i].y = \
-			(grid.coord[i].x * sin(120) + grid.coord[i].y * sin(120 + 2) + \
-			grid.coord[i].z * sin(120 - 2)) * grid.scaling + grid.y_offset;
+		projection_coords[i].int_x = \
+			(grid.coord[i].double_x * cos(120) + grid.coord[i].double_y * cos(120 + 2) + \
+			(grid.coord[i].double_z ) * cos(120 - 2)) * grid.scaling + grid.x_offset;
+		projection_coords[i].int_y = \
+			(grid.coord[i].double_x * sin(120) + grid.coord[i].double_y * sin(120 + 2) + \
+			(grid.coord[i].double_z ) * sin(120 - 2)) * grid.scaling + grid.y_offset;
 		projection_coords->rgb = grid.coord[i].rgb;
 	}
 	return (projection_coords);
@@ -40,7 +41,8 @@ t_coordinate	*isometric_projection(t_grid grid)
 void	put_projection(t_grid grid, t_data *img, t_coordinate *projection_coords)
 {
 	int				i;
-	int				x; int				y;
+	int				x;
+	int				y;
 	int				size;
 
 	size = grid.x * grid.y;
@@ -51,7 +53,7 @@ void	put_projection(t_grid grid, t_data *img, t_coordinate *projection_coords)
 		x = -1;
 		while (++x < grid.x)
 		{
-			my_mlx_pixel_put(img, projection_coords[i].x, projection_coords[i].y, projection_coords[i].rgb);
+			my_mlx_pixel_put(img, projection_coords[i].int_x, projection_coords[i].int_y, projection_coords[i].rgb);
 			if (x != grid.x - 1)
 				draw_line(img, projection_coords[i], projection_coords[i + 1]);
 			if (y != grid.y - 1)
@@ -90,6 +92,7 @@ static int	check_and_create_grid(t_grid *grid, int argc, char **argv)
 	}
 	close(fd);
 	grid->scaling = 15;
+	grid->z_scale = 1;
 	grid->x_offset = X_RESOLUTION/2;
 	grid->y_offset = Y_RESOLUTION/2;
 	return (0);

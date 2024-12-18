@@ -6,7 +6,7 @@
 /*   By: jianwong <jianwong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 22:13:07 by jianwong          #+#    #+#             */
-/*   Updated: 2024/12/18 16:26:41 by jianwong         ###   ########.fr       */
+/*   Updated: 2024/12/18 21:06:31 by jianwong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	htoi(char c)
 	return (i);
 }
 
-
 // 0x810202
 static int	process_colour(char *colour)
 {
@@ -50,18 +49,19 @@ static int	process_colour(char *colour)
 	while (i < 4)
 	{
 		r *= 16;
-		r = htoi(colour[i++]);
+		r += htoi(colour[i++]);
 	}
 	while (i < 6)
 	{
 		g *= 16;
-		g = htoi(colour[i++]);
+		g += htoi(colour[i++]);
 	}
 	while (i < 8)
 	{
 		b *= 16;
-		b = htoi(colour[i++]);
+		b += htoi(colour[i++]);
 	}
+	// ft_printf ("%d\n",create_trgb(0, r, g, b));
 	return (create_trgb(0, r, g, b));
 }
 
@@ -78,9 +78,9 @@ static int	process_points(char **points, t_list **temp, t_grid *grid)
 		if (!placeholder)
 			return (1);
 		point = ft_split(points[i], ',');
-		placeholder->x = i;
-		placeholder->y = grid->y;
-		placeholder->z = atoi(point[0]);
+		placeholder->double_x = i;
+		placeholder->double_y = grid->y;
+		placeholder->double_z = atoi(point[0]);
 		placeholder->rgb = RED;
 		if (point[1])
 			placeholder->rgb = process_colour(point[1]);
@@ -106,9 +106,9 @@ static t_coordinate	*covert_list_to_arr(t_list *temp)
 		return (NULL);
 	while (temp)
 	{
-		result[j].x = ((t_coordinate *)temp->content)->x;
-		result[j].y = ((t_coordinate *)temp->content)->y;
-		result[j].z = ((t_coordinate *)temp->content)->z;
+		result[j].double_x = ((t_coordinate *)temp->content)->double_x;
+		result[j].double_y = ((t_coordinate *)temp->content)->double_y;
+		result[j].double_z = ((t_coordinate *)temp->content)->double_z;
 		result[j].rgb = ((t_coordinate *)temp->content)->rgb;
 		temp2 = temp;	
 		temp = temp->next;
