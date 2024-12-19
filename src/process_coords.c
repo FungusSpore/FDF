@@ -6,7 +6,7 @@
 /*   By: jianwong <jianwong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 22:13:07 by jianwong          #+#    #+#             */
-/*   Updated: 2024/12/19 13:46:20 by jianwong         ###   ########.fr       */
+/*   Updated: 2024/12/19 23:29:37 by jianwong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	htoi(char c)
 	return (i);
 }
 
-// 0x810202
 static int	process_colour(char *colour)
 {
 	int		r;
@@ -140,6 +139,7 @@ int	process_coords(int fd, t_grid *grid)
 		free(line);
 		line = get_next_line(fd);
 		grid->y++;
+		free_all(points);
 	}
 	grid->coord = covert_list_to_arr(temp);
 	if (!grid->coord || !grid->y)

@@ -6,7 +6,7 @@
 /*   By: jianwong <jianwong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 15:28:02 by jianwong          #+#    #+#             */
-/*   Updated: 2024/12/19 16:38:34 by jianwong         ###   ########.fr       */
+/*   Updated: 2024/12/19 23:18:24 by jianwong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,15 @@ static int	key_hook_2(int keycode, t_var *vars)
 		vars->grid.z_scale += 0.2;
 	if (keycode == X_KEY)
 		vars->grid.z_scale -= 0.2;
+	if (keycode == P_KEY)
+	{
+		if (!vars->grid.is_parallel)
+			vars->grid.is_parallel = 1;
+		else
+			vars->grid.is_parallel = 0;
+	}
+	if (keycode == R_KEY)
+		init_settings(&vars->grid);
 	return (0);
 }
 
@@ -55,4 +64,3 @@ int	key_hook(int keycode, t_var *vars)
 	key_hook_2(keycode, vars);
 	return (0);
 }
-

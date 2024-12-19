@@ -6,12 +6,11 @@
 /*   By: jianwong <jianwong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 16:25:20 by jianwong          #+#    #+#             */
-/*   Updated: 2024/12/19 16:55:19 by jianwong         ###   ########.fr       */
+/*   Updated: 2024/12/19 23:34:17 by jianwong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/FDF.h"
-#include <stdio.h>
 
 static double	to_radians(int angle)
 {

@@ -6,7 +6,7 @@
 /*   By: jianwong <jianwong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:38:46 by jianwong          #+#    #+#             */
-/*   Updated: 2024/12/19 16:34:05 by jianwong         ###   ########.fr       */
+/*   Updated: 2024/12/19 23:36:16 by jianwong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,10 @@
 # define Z_KEY 122
 # define X_KEY 120
 
+# define P_KEY 112
+
+# define R_KEY 114
+
 typedef struct s_data
 {
 	void	*img;
@@ -77,6 +81,7 @@ typedef struct s_grid
 	int	y_angle;
 	int	x_angle;
 	int	z_angle;
+	int	is_parallel;
 }		t_grid;
 
 typedef struct s_init
@@ -94,6 +99,7 @@ typedef struct s_var
 }		t_var;
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void	init_settings(t_grid *grid);
 
 int	create_trgb(int t, int r, int g, int b);
 int	get_t(int trgb);
@@ -115,5 +121,11 @@ int	key_hook(int keycode, t_var *vars);
 void	x_rotation(t_coordinate *projection_coords, int angle, int size);
 void	y_rotation(t_coordinate *projection_coords, int angle, int size);
 void	z_rotation(t_coordinate *projection_coords, int angle, int size);
+void	init_settings(t_grid *grid);
+
+t_coordinate	*isometric_projection(t_grid grid, t_coordinate *projection_coords);
+void parallel_projection(t_grid grid, t_coordinate *projection_coords);
+void	put_projection(t_grid grid, t_data *img, t_coordinate *projection_coords);
+void	projection_rotation(t_grid grid, t_coordinate *projection_coords);
 
 #endif
