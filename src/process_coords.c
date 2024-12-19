@@ -6,7 +6,7 @@
 /*   By: jianwong <jianwong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 22:13:07 by jianwong          #+#    #+#             */
-/*   Updated: 2024/12/18 21:06:31 by jianwong         ###   ########.fr       */
+/*   Updated: 2024/12/19 13:46:20 by jianwong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ static int	process_colour(char *colour)
 		b *= 16;
 		b += htoi(colour[i++]);
 	}
-	// ft_printf ("%d\n",create_trgb(0, r, g, b));
 	return (create_trgb(0, r, g, b));
 }
 

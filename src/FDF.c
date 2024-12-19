@@ -6,7 +6,7 @@
 /*   By: jianwong <jianwong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 15:54:02 by jianwong          #+#    #+#             */
-/*   Updated: 2024/12/18 22:06:55 by jianwong         ###   ########.fr       */
+/*   Updated: 2024/12/19 13:58:21 by jianwong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ t_coordinate	*isometric_projection(t_grid grid)
 	{
 		projection_coords[i].int_x = \
 			(grid.coord[i].double_x * cos(120) + grid.coord[i].double_y * cos(120 + 2) + \
-			(grid.coord[i].double_z ) * cos(120 - 2)) * grid.scaling + grid.x_offset;
+			(grid.coord[i].double_z * grid.z_scale) * cos(120 - 2)) * grid.scaling + grid.x_offset;
 		projection_coords[i].int_y = \
 			(grid.coord[i].double_x * sin(120) + grid.coord[i].double_y * sin(120 + 2) + \
-			(grid.coord[i].double_z ) * sin(120 - 2)) * grid.scaling + grid.y_offset;
+			(grid.coord[i].double_z * grid.z_scale) * sin(120 - 2)) * grid.scaling + grid.y_offset;
 		projection_coords[i].rgb = grid.coord[i].rgb;
 	}
 	return (projection_coords);
@@ -102,6 +102,21 @@ int	render_next_frame(t_var *vars)
 	t_coordinate	*projection_coords;
 
 	ft_bzero(vars->init.img.addr, (1980 * 1080) * (vars->init.img.bits_per_pixel/8));
+	projection_coords = isometric_projection(vars->grid);
+	put_projection(vars->grid, &vars->init.img, projection_coords);
+	mlx_put_image_to_window(vars->init.mlx, vars->init.win_mlx, vars->init.img.img, 0, 0);
+	free(projection_coords);
+	return (0);
+}
+
+int	render_next_frame(t_var *vars)
+{
+	t_coordinate	*projection_coords;
+
+	ft_bzero(vars->init.img.addr, (1980 * 1080) * (vars->init.img.bits_per_pixel/8));
+	ft_memcpy(projection_coords, vars->grid.coord, size_t n);
+	z_scaling(projection_coords);
+	projection_rotation(projection_coords);
 	projection_coords = isometric_projection(vars->grid);
 	put_projection(vars->grid, &vars->init.img, projection_coords);
 	mlx_put_image_to_window(vars->init.mlx, vars->init.win_mlx, vars->init.img.img, 0, 0);
