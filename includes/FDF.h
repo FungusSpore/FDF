@@ -6,7 +6,7 @@
 /*   By: jianwong <jianwong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:38:46 by jianwong          #+#    #+#             */
-/*   Updated: 2024/12/18 22:35:36 by jianwong         ###   ########.fr       */
+/*   Updated: 2024/12/19 16:34:05 by jianwong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,9 @@ typedef struct s_grid
 	int	y_offset;
 	int	x_offset;
 	float	z_scale;
+	int	y_angle;
+	int	x_angle;
+	int	z_angle;
 }		t_grid;
 
 typedef struct s_init
@@ -109,8 +112,8 @@ void	draw_line(t_data *img, t_coordinate point0, t_coordinate point1);
 
 int	key_hook(int keycode, t_var *vars);
 
-void	x_rotation(t_grid *grid, int angle);
-void	y_rotation(t_grid *grid, int angle);
-void	z_rotation(t_grid *grid, int angle);
+void	x_rotation(t_coordinate *projection_coords, int angle, int size);
+void	y_rotation(t_coordinate *projection_coords, int angle, int size);
+void	z_rotation(t_coordinate *projection_coords, int angle, int size);
 
 #endif
