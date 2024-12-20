@@ -1,4 +1,4 @@
-NAME=FDF
+NAME=fdf
 DIR_LIBFT=libft
 LIBFT=$(DIR_LIBFT)/libft.a
 SOURCE= src/FDF.c src/trgb.c src/colour_functions.c src/draw_line.c \
@@ -24,6 +24,9 @@ clean:
 	make -C $(DIR_LIBFT) clean
 
 fclean: clean
-	rm -f $(NAME) $(LIBFT)
+	rm -f $(NAME)
+	make -C $(DIR_LIBFT) fclean
 
 re: fclean all
+
+.PHONY: all clean fclean re

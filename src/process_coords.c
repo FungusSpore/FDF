@@ -6,7 +6,7 @@
 /*   By: jianwong <jianwong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 22:13:07 by jianwong          #+#    #+#             */
-/*   Updated: 2024/12/19 23:29:37 by jianwong         ###   ########.fr       */
+/*   Updated: 2024/12/20 15:14:41 by jianwong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,6 @@ static void	free_all(char **nums)
 	while (nums[i])
 		free(nums[i++]);
 	free(nums);
-}
-
-int	htoi(char c)
-{
-	char	*hex_base;
-	int		i;
-
-	hex_base = "0123456789ABCDEF";
-	i = 0;
-	while (hex_base[i] && c != hex_base[i])
-		i++;
-	return (i);
 }
 
 static int	process_colour(char *colour)
@@ -65,8 +53,8 @@ static int	process_colour(char *colour)
 
 static int	process_points(char **points, t_list **temp, t_grid *grid)
 {
-	int	i;
-	char		**point;
+	int				i;
+	char			**point;
 	t_coordinate	*placeholder;
 
 	i = -1;
@@ -82,7 +70,7 @@ static int	process_points(char **points, t_list **temp, t_grid *grid)
 		placeholder->rgb = RED;
 		if (point[1])
 			placeholder->rgb = process_colour(point[1]);
-		ft_lstadd_back(temp, ft_lstnew(placeholder));
+		ft_lstadd_front(temp, ft_lstnew(placeholder));
 		free_all(point);
 	}
 	if (grid->x < 1)
@@ -94,25 +82,25 @@ static int	process_points(char **points, t_list **temp, t_grid *grid)
 
 static t_coordinate	*covert_list_to_arr(t_list *temp)
 {
-	int	j;
+	int				size;
+	t_list			*temp2;
 	t_coordinate	*result;
-	t_list	*temp2;
 
-	j = 0;
-	result = malloc(sizeof(t_coordinate) * ft_lstsize(temp));
+	size = ft_lstsize(temp);
+	result = malloc(sizeof(t_coordinate) * size--);
 	if (!result)
 		return (NULL);
 	while (temp)
 	{
-		result[j].double_x = ((t_coordinate *)temp->content)->double_x;
-		result[j].double_y = ((t_coordinate *)temp->content)->double_y;
-		result[j].double_z = ((t_coordinate *)temp->content)->double_z;
-		result[j].rgb = ((t_coordinate *)temp->content)->rgb;
-		temp2 = temp;	
+		result[size].double_x = ((t_coordinate *)temp->content)->double_x;
+		result[size].double_y = ((t_coordinate *)temp->content)->double_y;
+		result[size].double_z = ((t_coordinate *)temp->content)->double_z;
+		result[size].rgb = ((t_coordinate *)temp->content)->rgb;
+		temp2 = temp;
 		temp = temp->next;
 		free(temp2->content);
 		free(temp2);
-		j++;
+		size--;
 	}
 	return (result);
 }
@@ -123,8 +111,6 @@ int	process_coords(int fd, t_grid *grid)
 	char	*line;
 	t_list	*temp;
 
-	grid->y = 0;
-	grid->x = 0;
 	temp = NULL;
 	line = get_next_line(fd);
 	while (line)
@@ -146,65 +132,3 @@ int	process_coords(int fd, t_grid *grid)
 		return (1);
 	return (0);
 }
-
-// #include <stdio.h>
-//
-// // Function to print the grid
-// void print_grid(t_grid *grid)
-// {
-//     int i;
-//
-//     if (!grid || !grid->coord)
-//     {
-//         printf("Error: Grid is empty or not initialized.\n");
-//         return;
-//     }
-//
-//     printf("Grid (x, y, z, rgb):\n");
-//     for (i = 0; i < grid->x * grid->y; i++)
-//     {
-//         printf("%d ",
-//                // grid->coord[i].x);
-//                // grid->coord[i].y);
-//                // grid->coord[i].z);
-//                // grid->coord[i].rgb);
-//         if ((i + 1) % grid->x == 0)
-//             printf("\n");
-//     }
-// }
-//
-// int main(int argc, char **argv)
-// {
-//     int fd;
-//     t_grid grid;
-//
-//     if (argc != 2)
-//     {
-//         fprintf(stderr, "Usage: %s <filename>\n", argv[0]);
-//         return (1);
-//     }
-//
-//     fd = open(argv[1], O_RDONLY);
-//     if (fd < 0)
-//     {
-//         perror("Error opening file");
-//         return (1);
-//     }
-//
-//     // Initialize the grid and process the file
-//     if (process_coords(fd, &grid))
-//     {
-//         fprintf(stderr, "Error processing file.\n");
-//         close(fd);
-//         return (1);
-//     }
-//
-//     close(fd);
-//
-//     // Print the processed grid
-//     print_grid(&grid);
-//
-//     // Free the allocated grid memory
-//     free(grid.coord);
-//     return (0);
-// }

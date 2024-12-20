@@ -6,7 +6,7 @@
 /*   By: jianwong <jianwong@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:38:46 by jianwong          #+#    #+#             */
-/*   Updated: 2024/12/19 23:36:16 by jianwong         ###   ########.fr       */
+/*   Updated: 2024/12/20 15:29:23 by jianwong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,33 +63,32 @@ typedef struct s_coordinate
 	double	double_y;
 	double	double_x;
 	double	double_z;
-	int			int_y;
-	int			int_x;
-	int			int_z;
+	int		int_y;
+	int		int_x;
+	int		int_z;
 	int		rgb;
 }		t_coordinate;
 
 typedef struct s_grid
 {
-	t_coordinate *coord;
-	int	y;
-	int	x;
-	int	scaling;
-	int	y_offset;
-	int	x_offset;
-	float	z_scale;
-	int	y_angle;
-	int	x_angle;
-	int	z_angle;
-	int	is_parallel;
+	t_coordinate	*coord;
+	int				y;
+	int				x;
+	int				scaling;
+	int				y_offset;
+	int				x_offset;
+	float			z_scale;
+	int				y_angle;
+	int				x_angle;
+	int				z_angle;
+	int				is_parallel;
 }		t_grid;
 
 typedef struct s_init
 {
-	void	*mlx;
-	void	*win_mlx;
-	t_data img;
-	
+	void		*mlx;
+	void		*win_mlx;
+	t_data		img;
 }			t_init;
 
 typedef struct s_var
@@ -98,34 +97,48 @@ typedef struct s_var
 	t_init	init;
 }		t_var;
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void	init_settings(t_grid *grid);
+// FDF_UTILS
+void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void			init_settings(t_grid *grid);
+int				htoi(char c);
 
-int	create_trgb(int t, int r, int g, int b);
-int	get_t(int trgb);
-int	get_r(int trgb);
-int	get_g(int trgb);
-int	get_b(int trgb);
+// trgb
+int				create_trgb(int t, int r, int g, int b);
+int				get_t(int trgb);
+int				get_r(int trgb);
+int				get_g(int trgb);
+int				get_b(int trgb);
 
-int	add_shade(double distance, int trgb);
-int	invert_colour(int trgb);
-int	colour_gradient(int trgb1, int trgb2, int lenght, int current);
+// colour_functions
+int				colour_gradient(int trgb1, int trgb2, int lenght, int current);
 
-int	process_coords(int fd, t_grid *grid);
-// int	**init_grid(int fd, int *x, int *y);
+// process_coords
+int				process_coords(int fd, t_grid *grid);
 
-void	draw_line(t_data *img, t_coordinate point0, t_coordinate point1);
+// draw_line
+void			draw_line(t_data *img, t_coordinate point0, \
+		t_coordinate point1);
 
-int	key_hook(int keycode, t_var *vars);
+// key_hook
+int				key_hook(int keycode, t_var *vars);
 
-void	x_rotation(t_coordinate *projection_coords, int angle, int size);
-void	y_rotation(t_coordinate *projection_coords, int angle, int size);
-void	z_rotation(t_coordinate *projection_coords, int angle, int size);
-void	init_settings(t_grid *grid);
+// rotation
+void			x_rotation(t_coordinate *projection_coords, \
+		int angle, int size);
+void			y_rotation(t_coordinate *projection_coords, \
+		int angle, int size);
+void			z_rotation(t_coordinate *projection_coords, \
+		int angle, int size);
+void			init_settings(t_grid *grid);
 
-t_coordinate	*isometric_projection(t_grid grid, t_coordinate *projection_coords);
-void parallel_projection(t_grid grid, t_coordinate *projection_coords);
-void	put_projection(t_grid grid, t_data *img, t_coordinate *projection_coords);
-void	projection_rotation(t_grid grid, t_coordinate *projection_coords);
+// projections
+t_coordinate	*isometric_projection(t_grid grid, \
+		t_coordinate *projection_coords);
+void			parallel_projection(t_grid grid, \
+		t_coordinate *projection_coords);
+void			put_projection(t_grid grid, t_data *img, \
+		t_coordinate *projection_coords);
+void			projection_rotation(t_grid grid, \
+		t_coordinate *projection_coords);
 
 #endif
